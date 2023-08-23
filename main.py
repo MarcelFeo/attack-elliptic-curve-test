@@ -22,7 +22,10 @@ prime5 = 2**521 - 1
 
 # (1) DUAL_EC_DRBG "P-384" CURVE
 num384 = utils.generate_random_number(384)
-p384 = ec.EllipticCurve(-3, num384, prime1)
+p384 = ec.EllipticCurve(-3, num384, 19)
 
 # TABELA COM OS VALORES DOS PRIMOS
+print("<< PRIMES >>")
 utils.show_primes(prime1, prime2, prime3, prime4, prime5)
+print("<< CURVES >>")
+utils.show_curves(p384)

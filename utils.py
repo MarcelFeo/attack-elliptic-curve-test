@@ -16,5 +16,18 @@ def show_primes(p1, p2, p3, p4, p5):
 
     header = ["Name", "Expression", "Value"]
 
-    table = tabulate(data, headers=header, tablefmt="grid")
+    table = tabulate(data, headers=header, tablefmt="fancy_grid")
+    print(table)
+
+def show_curves(c1):
+
+    data = [
+        ["P-384", "y^2 = x^3 - 3x + b", c1.points[:10]]
+    ]
+
+    header = ["Name", "Expression", "Some Points"]
+
+
+
+    table = tabulate(data, headers=header, tablefmt="fancy_grid", disable_numparse=True)
     print(table)
