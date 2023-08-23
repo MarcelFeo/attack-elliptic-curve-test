@@ -1,5 +1,5 @@
-from utils import show_primes
-import ecc
+import utils
+import ec
 
 # PRIMOS UTILIZADOS NO EXPERIMENTO
 
@@ -18,5 +18,11 @@ prime4 = 2**384 - 2**128 - 2^96 + 2^32 - 1
 # (5) 521 bits: 2^521 - 1
 prime5 = 2**521 - 1
 
+# CURVAS ELÍPTICAS UTILIZADOS NO EXPERIMENTO
+
+# (1) DUAL_EC_DRBG "P-384" CURVE
+num384 = utils.generate_random_number(384)
+p384 = ec.EllipticCurve(-3, num384, prime1)
+
 # TABELA COM OS VALORES DOS PRIMOS
-show_primes(prime1, prime2, prime3, prime4, prime5)
+utils.show_primes(prime1, prime2, prime3, prime4, prime5)

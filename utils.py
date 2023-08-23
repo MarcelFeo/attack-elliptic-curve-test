@@ -1,4 +1,9 @@
 from tabulate import tabulate
+import random
+
+def generate_random_number(bits):
+    num = random.getrandbits(bits)
+    return num
 
 def show_primes(p1, p2, p3, p4, p5):
     data = [
