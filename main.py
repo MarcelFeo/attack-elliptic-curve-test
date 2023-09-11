@@ -1,5 +1,6 @@
 import utils
 import ec
+import attacks
 
 # PRIMOS UTILIZADOS NO EXPERIMENTO
 
@@ -23,10 +24,17 @@ prime5 = 2**521 - 1
 # (1) DUAL_EC_DRBG "P-384" CURVE
 num384 = utils.generate_random_number(384)
 p384 = ec.EllipticCurve(-3, num384, 17) # point: (0, 3)
-pk = p384.public_key(2, (0, 3)) # public key = (13, 12)
+
+generator_point = (0, 3)
+pk = p384.public_key(2, generator_point) # public key = (13, 12)
 
 # TABELA COM OS VALORES DOS PRIMOS
 print("<< PRIMES >>")
 utils.show_primes(prime1, prime2, prime3, prime4, prime5)
 print("<< CURVES >>")
 utils.show_curves(p384)
+
+order = attacks.find_order_of_point(p384, (0, 3), 17)
+
+private_key = attacks.find_private_key(order, q)
+print("Chave privada:", private_key)
