@@ -83,3 +83,6 @@ class EllipticCurve:
 
     def is_point_on_curve(self, x, y):
         return self.equal_modp(y*y, x*x*x + self.a * x + self.b)
+
+    def public_key(self, k, g):
+        return self.mul(k, g)

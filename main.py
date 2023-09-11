@@ -22,7 +22,8 @@ prime5 = 2**521 - 1
 
 # (1) DUAL_EC_DRBG "P-384" CURVE
 num384 = utils.generate_random_number(384)
-p384 = ec.EllipticCurve(-3, num384, 19)
+p384 = ec.EllipticCurve(-3, num384, 17) # point: (0, 3)
+pk = p384.public_key(2, (0, 3)) # public key = (13, 12)
 
 # TABELA COM OS VALORES DOS PRIMOS
 print("<< PRIMES >>")
