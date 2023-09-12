@@ -48,11 +48,6 @@ class EllipticCurve:
         if self.equal_modp(x1, x2) and self.equal_modp(y1, -y2):
             return INF_POINT
 
-        # if self.equal_modp(x1, x2) and self.equal_modp(y1, y2):
-        #     m = self.reduce_modp((3 * x1 * x2 + self.a) * self.inverse_modp(2 * y1))
-        # else:
-        #     m = self.reduce_modp((y1 - y2) * self.inverse_modp(x1*x2))
-
         if self.equal_modp(x1, x2) and self.equal_modp(y1, y2):
             inverse_2y1 = self.inverse_modp(2 * y1)
             if inverse_2y1 is None:
@@ -98,3 +93,4 @@ class EllipticCurve:
 
     def public_key(self, k, g):
         return self.mul(k, g)
+        #return k * g

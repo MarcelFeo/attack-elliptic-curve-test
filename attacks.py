@@ -1,25 +1,37 @@
-import utils
-import ec
+from math import ceil, sqrt
 
-def find_order_of_point(curve, P, q):
-    m = int(q**0.25) + 1
-    stored_points = {}
+def baby_step_giant_step(a, g, p):
+    # a^x ≅ g mod p
 
-    jP = P
-    for j in range(m + 1):
-        stored_points[jP] = j
-        jP = curve.add(jP, P)
+    m = ceil(sqrt(p))
+    print("m = ", m)
+    points = []
 
-    k = -m
-    while True:
-        candidate = curve.add(q, curve.mul(2 * m * k, P))
-        if candidate in stored_points:
-            j = stored_points[candidate]
-            M = q + 1 + 2 * m * k - j
-            return M
+    # baby steps & giant steps
+    baby_step = {}
+    giant_step = {}
 
-        k += 1
+    for i in range(m):
+        # baby_step.append((i, a ** (m * i) % p))
+        # giant_step.append((i, g * (a ** -i) % p))
+        baby_step[i] = (a ** (m * i)) % p
+        giant_step[i] = (g * (a ** (-i))) % p
+        print("\n i = " + str(i) + "\n")
+        print("valor baby = " + str(baby_step[i]))
+        print("valor giant = " + str(giant_step[i]))
 
-def find_private_key(order, q):
-    private_key = q + 1 - order
-    return private_key
+    # procurando os valores iguais
+    for j in range(m):
+        for k in range(m):
+            # print("valor baby = " + str(baby_step[j]))
+            # print("valor giant = " + str(giant_step[k]))
+
+            if baby_step[j] == giant_step[k]:
+                points.append((j, baby_step[j]))
+                points.append((k, giant_step[k]))
+                # print("Dentro do if")
+                # print("valor baby = " + str(baby_step[j]))
+                # print("valor giant = " + str(giant_step[k]))
+
+    key = (m * j + k) % p
+    return key

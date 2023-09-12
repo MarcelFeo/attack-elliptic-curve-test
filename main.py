@@ -34,7 +34,6 @@ utils.show_primes(prime1, prime2, prime3, prime4, prime5)
 print("<< CURVES >>")
 utils.show_curves(p384)
 
-order = attacks.find_order_of_point(p384, (0, 3), 17)
-
-private_key = attacks.find_private_key(order, q)
-print("Chave privada:", private_key)
+# passar como parametro pk (chave pública)
+private_key = attacks.baby_step_giant_step(2, 7, 17)
+print(private_key)
