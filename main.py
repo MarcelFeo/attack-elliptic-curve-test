@@ -35,5 +35,7 @@ print("<< CURVES >>")
 utils.show_curves(p384)
 
 # passar como parametro pk (chave pública)
-private_key = attacks.baby_step_giant_step(2, 7, 17)
-print(private_key)
+# private_key = attacks.baby_step_giant_step(2, 7, 17)
+# print(private_key)
+
+
