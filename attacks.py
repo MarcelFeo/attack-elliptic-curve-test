@@ -4,31 +4,32 @@ from math import ceil, sqrt
 INF_POINT = None
 
 # Baby Step Giant Step
-def baby_step_giant_step(a, g, p):
-    # a^x ≅ g mod p
+# Usando como referência o livro Elliptic Curves – Number Theory and Cryptography
+def baby_step_giant_step(g, h, p):
+    '''
+    Solve for x in h = g^x mod p given a prime p.
+    If p is not prime, you shouldn't use BSGS anyway.
+    '''
+    
+    N = ceil(sqrt(p - 1))  # phi(p) is p-1 if p is prime
 
-    m = ceil(sqrt(p))
-    points = []
+    # Store hashmap of g^{1...m} (mod p). Baby step.
+    tbl = {pow(g, i, p): i for i in range(N)}
 
-    # baby steps & giant steps
-    baby_step = {}
-    giant_step = {}
+    # Precompute via Fermat's Little Theorem
+    c = pow(g, N * (p - 2), p)
 
-    for i in range(m):
-        baby_step[i] = (a ** (m * i)) % p
-        giant_step[i] = (g * (a ** (-i))) % p
+    # Search for an equivalence in the table. Giant step.
+    for j in range(N):
+        y = (h * pow(c, j, p)) % p
+        if y in tbl:
+            return j * N + tbl[y]
 
-    # procurando os valores iguais
-    for j in range(m):
-        for k in range(m):
-            if baby_step[j] == giant_step[k]:
-                points.append((j, baby_step[j]))
-                points.append((k, giant_step[k]))
-
-    key = (m * j + k) % p
-    return key
+    # Solution not found
+    return None
 
 # Pollard Rho
+# Usando como referência https://www.embeddedrelated.com/showarticle/1093.php
 def cycle_detect_floyd(f, x0, matchfunc=None, include_count=False):
     u = x0
     v = x0
