@@ -10,7 +10,7 @@ def baby_step_giant_step(g, h, p):
     Solve for x in h = g^x mod p given a prime p.
     If p is not prime, you shouldn't use BSGS anyway.
     '''
-    
+
     N = ceil(sqrt(p - 1))  # phi(p) is p-1 if p is prime
 
     # Store hashmap of g^{1...m} (mod p). Baby step.
@@ -57,7 +57,7 @@ def cycle_detect_brent(f, x0, matchfunc=None, include_count=False):
         v = f(v)
         if matchfunc(u,v):
             result = u, v, ku, kv
-            return result + (kv,) if include_count else result
+            return result + (kv) if include_count else result
         if kv == kpow2:
             ku = kv
             u = v
